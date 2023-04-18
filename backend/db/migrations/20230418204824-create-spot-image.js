@@ -1,7 +1,12 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
+
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('SpotImages', {
       id: {
         allowNull: false,
@@ -31,9 +36,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    }, options);
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('SpotImages');
+  down: async (queryInterface, Sequelize) => {
+    options.tableName = "SpotImages";
+    return queryInterface.dropTable(options);
   }
 };

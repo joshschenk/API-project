@@ -1,9 +1,6 @@
 const express = require('express');
-<<<<<<< HEAD
 const {Spot, SpotImage, Review, User} = require('../../db/models');
-=======
 const {Spot, SpotImage, Review, User, ReviewImage} = require('../../db/models');
->>>>>>> dev
 const { requireAuth } = require('../../utils/auth');
 const user = require('../../db/models/user');
 const spotimage = require('../../db/models/spotimage');
@@ -12,9 +9,8 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-<<<<<<< HEAD
 
-=======
+
 const validateReview = [
     check('review')
         .exists({ checkFalsy: true })
@@ -29,7 +25,7 @@ const validateReview = [
         .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ];
->>>>>>> dev
+
 
 const validateCreate = [
     check('address')
@@ -38,7 +34,7 @@ const validateCreate = [
         .withMessage('Street address is required'),
     check('city')
         .exists({ checkFalsy: true })
-<<<<<<< HEAD
+
         .withMessage('City is required'),
     handleValidationErrors,
     check('state')
@@ -65,7 +61,7 @@ const validateCreate = [
     handleValidationErrors,
     check('price')
         .exists({ checkFalsy: true })
-=======
+
         .notEmpty()
         .withMessage('City is required'),
     check('state')
@@ -95,7 +91,7 @@ const validateCreate = [
     check('price')
         .exists({ checkFalsy: true })
         .notEmpty()
->>>>>>> dev
+
         .withMessage('Price per day is required'),
     handleValidationErrors,
 ];
@@ -298,8 +294,7 @@ router.put('/:spotId', requireAuth, validateCreate, async (req, res, next) => {
     return res.json(spot);
 })
 
-<<<<<<< HEAD
-=======
+
 
 router.get('/:spotId/reviews', async (req, res, next) => {
 
@@ -417,7 +412,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
     return res.json({ message: "Successfully deleted" })
 
 })
->>>>>>> dev
+
 function setPreview(spotImages)
 {
     let preview = ""

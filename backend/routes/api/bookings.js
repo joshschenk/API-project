@@ -118,6 +118,43 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res, next) =
 })
 
 
+router.delete('/:bookingId', requireAuth,  async (req, res, next) => {
+
+
+    const booking = await Booking.findByPk(req.params.bookingId,
+        {
+            where:
+            {
+                id: req.params.bookingId,
+                userId: req.user.id
+
+            }
+        })
+
+    if (!booking) {
+        const err = new Error("Booking couldn't be found")
+        err.status = 404;
+        return res.json({
+            message: err.message
+        })
+    }
+
+    let current = new Date();
+    let startDate = new Date(booking.startDate);
+
+    if (current > startDate) {
+        const err = new Error("Bookings that have been started can't be deleted")
+        err.status = 403;
+        return res.json({
+            message: err.message
+        })
+    }
+
+    await booking.destroy();
+
+    return res.json({ message: "Successfully deleted" })
+
+})
 function setPreview(spotImages) {
     let preview = ""
     for (image of spotImages) {

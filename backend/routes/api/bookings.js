@@ -113,7 +113,8 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res, next) =
         })
     }
 
-    const book = await Booking.create({ spotId: booking.spotId, userId: req.user.id, startDate, endDate })
+    booking.set({ spotId: booking.spotId, userId: req.user.id, startDate, endDate })
+    await booking.save();
     res.json(book)
 })
 

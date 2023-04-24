@@ -19,14 +19,37 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+
+
+    options.tableName = 'Bookings';
+    return queryInterface.bulkInsert(options, [
+      {
+        spotId: 1,
+        userId: 1,
+        startDate: new Date("4-11-2023"),
+        endDate: new Date("4-22-2023")
+      },
+      {
+        spotId: 2,
+        userId: 1,
+        startDate: new Date("3-12-2023"),
+        endDate: new Date("3-21-2023")
+      },
+      {
+        spotId: 2,
+        userId: 2,
+        startDate: new Date("4-15-2023"),
+        endDate: new Date("4-17-2023")
+      },
+    ])
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+
+
+    down: async (queryInterface, Sequelize) => {
+      options.tableName = 'Bookings';
+      const Op = Sequelize.Op;
+      return queryInterface.bulkDelete(options, {}, {});
+    }
+
 };

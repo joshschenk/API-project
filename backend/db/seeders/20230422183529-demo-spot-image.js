@@ -28,8 +28,18 @@ module.exports = {
         preview: true
       },
       {
+        spotId: 1,
+        url: "spot1 image2",
+        preview: false
+      },
+      {
         spotId: 2,
-        url: "spot1 image",
+        url: "spot2 image",
+        preview: true
+      },
+      {
+        spotId: 3,
+        url: "spot3 image",
         preview: true
       }
     ])

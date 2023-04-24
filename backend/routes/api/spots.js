@@ -1,5 +1,4 @@
 const express = require('express');
-const {Spot, SpotImage, Review, User} = require('../../db/models');
 const {Spot, SpotImage, Review, User, ReviewImage} = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const user = require('../../db/models/user');
@@ -8,8 +7,6 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
-
-
 
 const validateReview = [
     check('review')
@@ -26,7 +23,6 @@ const validateReview = [
     handleValidationErrors
 ];
 
-
 const validateCreate = [
     check('address')
         .exists({ checkFalsy: true })
@@ -34,34 +30,6 @@ const validateCreate = [
         .withMessage('Street address is required'),
     check('city')
         .exists({ checkFalsy: true })
-
-        .withMessage('City is required'),
-    handleValidationErrors,
-    check('state')
-        .exists({ checkFalsy: true })
-        .withMessage('City is required'),
-    handleValidationErrors,
-    check('country')
-        .exists({ checkFalsy: true })
-        .withMessage('Country is required'),
-    handleValidationErrors,
-    check('lat')
-        .exists({ checkFalsy: true }).isLength({ max: 90, min: -90 })
-        .withMessage('Latitude is not valid'),
-    check('lng')
-        .exists({ checkFalsy: true }).isLength({ max: 180, min: -180 })
-        .withMessage('Longitude is not valid'),
-    check('name')
-        .exists({ checkFalsy: true }).isLength({ max: 50 })
-        .withMessage('Name must be less than 50 characters'),
-    handleValidationErrors,
-    check('description')
-        .exists({ checkFalsy: true })
-        .withMessage('Desciption is required'),
-    handleValidationErrors,
-    check('price')
-        .exists({ checkFalsy: true })
-
         .notEmpty()
         .withMessage('City is required'),
     check('state')
@@ -91,7 +59,6 @@ const validateCreate = [
     check('price')
         .exists({ checkFalsy: true })
         .notEmpty()
-
         .withMessage('Price per day is required'),
     handleValidationErrors,
 ];
@@ -295,7 +262,6 @@ router.put('/:spotId', requireAuth, validateCreate, async (req, res, next) => {
 })
 
 
-
 router.get('/:spotId/reviews', async (req, res, next) => {
 
 
@@ -412,7 +378,6 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
     return res.json({ message: "Successfully deleted" })
 
 })
-
 function setPreview(spotImages)
 {
     let preview = ""

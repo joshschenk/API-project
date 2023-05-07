@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
+import "./ProfileButton.css"
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -32,7 +33,7 @@ function ProfileButton({ user }) {
         dispatch(sessionActions.logout());
     };
 
-    const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+    const ulClassName = "profile-dropdown" + (showMenu ? "" : "hidden");
 
     return (
         <>

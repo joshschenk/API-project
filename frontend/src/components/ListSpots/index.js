@@ -13,7 +13,6 @@ const ListSpots = () => {
         useSelector((state) => (state.spots ? state.spots : []))
     );
 
-
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -22,10 +21,12 @@ const ListSpots = () => {
 
 
 
+
     return (
         <ul>
             {spots.map((spot) => (
-                <li> spot={spot} key={spot.id}</li>
+
+                <Spot spot={spot} key={spot.id}/>
             ))}
         </ul>
 

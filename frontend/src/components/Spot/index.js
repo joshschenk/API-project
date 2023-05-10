@@ -2,15 +2,25 @@ import { Link } from "react-router-dom";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSpots } from "../../store/spots";
+import { fetchSpot } from "../../store/spots";
+
+
 
 const Spot = ({spot}) => {
 
+    console.log(spot)
 
     return (
-        <li>
+        <>
+            <div>
+            <Link to={`/spots/${spot.id}`}>
+                <img src={spot.previewImage} alt="preview"/>
+            </Link>
+            <br/>
+            {spot.city},{spot.state} {spot.price}/night {spot.avgRating}
+            </div>
+        </>
 
-        </li>
     )
 }
 

@@ -9,6 +9,8 @@ import { fetchReviews } from "../../store/reviews";
 const SpotDetails = () => {
     const { spotId } = useParams();
 
+
+
     const spot = useSelector((state => state.spot ? state.spot : null))
     const reviews = Object.values(
         useSelector((state=> state.reviews ? state.reviews: []))
@@ -17,15 +19,15 @@ const SpotDetails = () => {
 
     useEffect(() => {
         dispatch(fetchSpot(spotId))
-        console.log("REVIEWS!......")
-        console.log(reviews)
         dispatch(fetchReviews(spotId))
     }, [dispatch, spotId])
 
 
-
+    console.log("In component")
+    console.log(spot)
     return (
         <>
+            {spot.name}
             {
                 spot.SpotImages?.map((image) => (
                     <img src={image.url} key={image.id} alt={image.id} />

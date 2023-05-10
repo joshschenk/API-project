@@ -23,12 +23,15 @@ const ListSpots = () => {
 
 
     return (
+        <>
+        <Link to="/spots/new">new spot</Link>
         <ul>
             {spots.map((spot) => (
 
                 <Spot spot={spot} key={spot.id}/>
             ))}
         </ul>
+        </>
 
 
     );

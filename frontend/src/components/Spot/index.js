@@ -8,7 +8,7 @@ import { fetchSpot } from "../../store/spots";
 
 const Spot = ({spot}) => {
 
-    console.log(spot)
+
 
     return (
         <>

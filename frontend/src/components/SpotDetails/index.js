@@ -21,18 +21,18 @@ const SpotDetails = () => {
         dispatch(fetchSpot(spotId))
         dispatch(fetchReviews(spotId))
     }, [dispatch, spotId])
-
-
-    console.log("In component")
     console.log(spot)
+
     return (
         <>
-            {spot.name}
+
             {
                 spot.SpotImages?.map((image) => (
                     <img src={image.url} key={image.id} alt={image.id} />
                 ))
             }
+            <br></br>
+            {spot.name}
             {
                 reviews?.map((review) => (
                     <div key={review.id}>{review.User.firstName}<br />{review.review}</div>

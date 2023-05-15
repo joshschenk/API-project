@@ -1,25 +1,43 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 
+import {updateSpot, addImage} from "../../store/spot";
 import {createSpot} from "../../store/spot";
+import { addSpot } from "../../store/spots";
 
 
-const CreateSpot = () => {
+const CreateSpot = (spot) => {
+
+
     const history = useHistory();
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState();
-    const [country, setCountry] = useState();
-    const [name, setName] = useState();
-    const [description, setDescription] = useState();
-    const [price, setPrice] = useState();
-    const [previewImage, setPreviewImage] = useState();
+    const [address, setAddress] = useState(spot?.spot?.address);
+    const [city, setCity] = useState(spot?.spot?.city);
+    console.log(city)
+    const [state, setState] = useState(spot?.spot?.state);
+    const [country, setCountry] = useState(spot.spot?.country);
+    const [name, setName] = useState(spot.spot?.name);
+    const [description, setDescription] = useState(spot.spot?.description);
+    const [price, setPrice] = useState(spot.spot?.price);
+    const [previewImage, setPreviewImage] = useState(spot.spot?.previewImage);
     const [errors, setErrors] = useState({});
 
-    const dispatch = useDispatch();
+    // useEffect(() => {
+    //     setState(spot.spot.state)
+    //     setCity(spot.spot.city)
+    //     setCountry(spot.spot.country)
+    //     setAddress(spot.spot.address)
+    //     setName(spot.spot.name)
+    //     setDescription(spot.spot.description)
+    //     setPrice(spot.spot.price)
+    //     setPreviewImage(spot.spot.previewImage)
+    // },[useParams()])
 
+
+    const formType = spot.formType
+    const spotId = spot.spot?.id
+    const dispatch = useDispatch();
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
@@ -27,9 +45,22 @@ const CreateSpot = () => {
         const lng = 92;
         const spot = { address, city, state, country, lat, lng, name, description, price, previewImage }
 
-        const newSpot = await dispatch(createSpot(spot));
+        if (formType !== "Update")
+        {
+            const newSpot = await dispatch(createSpot(spot));
+            await dispatch(addImage(newSpot.id, { url: previewImage, preview: true }))
+            await dispatch(addSpot(newSpot))
 
-        history.push(`/spots/${newSpot.id}`);
+            history.push(`/spots/${newSpot.id}`);
+        }
+        else if (formType==="Update")
+        {
+            const newSpot = await dispatch(updateSpot(spot, spotId));
+
+            history.push(`/spots/${newSpot.id}`);
+        }
+
+
     }
     return (
         <form onSubmit={handleSubmit}>
@@ -38,57 +69,64 @@ const CreateSpot = () => {
                 Address:
                 <input
                     type="text"
-                    value={address}
+                    value={spot?.spot?.address}
                     onChange={(e) => setAddress(e.target.value)}
                 />
             </label>
             <label>
                 City:
-                <textarea
-                    value={city}
+                <input
+                    type="text"
+                    value={spot?.spot?.city}
                     onChange={(e) => setCity(e.target.value)}
                 />
             </label>
             <label>
                 State:
-                <textarea
-                    value={state}
+                <input
+                    type="text"
+                    value={spot?.spot?.state}
                     onChange={(e) => setState(e.target.value)}
                 />
             </label>
             <label>
                 Country:
-                <textarea
-                    value={country}
+                <input
+                    type="text"
+                    value={spot?.spot?.country}
                     onChange={(e) => setCountry(e.target.value)}
                 />
             </label>
             <label>
                 Name:
-                <textarea
-                    value={name}
+                <input
+                    type="text"
+                    value={spot?.spot?.name}
                     onChange={(e) => setName(e.target.value)}
                 />
             </label>
             <label>
                 Description:
-                <textarea
-                    value={description}
+                <input
+                    type="text"
+                    value={spot?.spot?.description}
                     onChange={(e) => setDescription(e.target.value)}
                 />
             </label>
             <label>
                 Price:
-                <textarea
-                    value={price}
+                <input
+                    type="number"
+                    value={spot?.spot?.price}
                     onChange={(e) => setPrice(e.target.value)}
                 />
             </label>
             <label>
                 Image:
-                <textarea
-                    value={previewImage}
-                    onChange={(e) => previewImage(e.target.value)}
+                <input
+                    type="text"
+                    value={spot?.spot?.previewImage}
+                    onChange={(e) => setPreviewImage(e.target.value)}
                 />
             </label>
             <button type="submit">New Spot</button>

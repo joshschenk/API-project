@@ -3,11 +3,17 @@ import { csrfFetch } from "./csrf";
 export const LIST_SPOT = "spots/LIST_SPOT"
 export const RECEIVE_SPOT = "spots/RECEIVE_REPORT"
 export const RECEIVE_IMAGE = "spots/RECEIVE_IMAGE"
+export const UPDATE_SPOT = "spots/UPDATE_SPOT"
 
 export const listSpot = (spot) => ({
     type: LIST_SPOT,
     spot
 })
+
+export const editSpot = (report) => ({
+    type: UPDATE_SPOT,
+    report,
+});
 
 export const receiveSpot = (report) => ({
     type: RECEIVE_SPOT,
@@ -29,6 +35,22 @@ export const fetchSpot = (id) => async (dispatch) => {
     }
 };
 
+export const updateSpot = (spot, spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(spot),
+    });
+    if (res.ok) {
+        const updatedReport = await res.json();
+        dispatch(editSpot(updatedReport));
+        return updatedReport;
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+};
+
 export const createSpot = (spot) => async (dispatch) => {
     const res = await csrfFetch("/api/spots", {
         method: "POST",
@@ -37,6 +59,7 @@ export const createSpot = (spot) => async (dispatch) => {
     });
     if (res.ok) {
         const newSpot = await res.json();
+
         dispatch(receiveSpot(newSpot));
         return newSpot;
     } else {
@@ -46,7 +69,10 @@ export const createSpot = (spot) => async (dispatch) => {
 };
 
 export const addImage = (id, img) => async (dispatch) => {
-    const res = await csrfFetch(`/api/${id}/images`, {
+    console.log("in addImage thunk")
+    console.log(id)
+    console.log(JSON.stringify(img))
+    const res = await csrfFetch(`/api/spots/${id}/images`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(img),
@@ -67,11 +93,14 @@ const spotReducer = (state = {}, action) => {
         case RECEIVE_SPOT:
             const newSpot = {...action.spot}
             return newSpot
-        // case RECEIVE_IMAGE:
-        //     const newImage = //{...state, action.spot.spotImages}
+        case UPDATE_SPOT:
+            const updatedSpot = { ...action.spot }
+            return updatedSpot
+         case RECEIVE_IMAGE:
+             const newImage = {...state, previewImage: action.image}
+             return newImage;
         default:
             return state;
-
 
     }
 }

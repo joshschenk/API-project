@@ -149,15 +149,26 @@ router.get('/',validateQuery, async (req, res, next) => {
         where.price = { [Op.lte] :maxPrice}
 
     const spots = await Spot.findAll({
-        where, ...pagination
+        where,
+        include: [
+            {
+                model: Review
+            },
+            {
+                model: SpotImage
+            }
+        ],
+             ...pagination
+
+
     }
     );
 
 
     for (let spot of spots) {
         let total = 0;
-        const reviews = await spot.getReviews();
-        const images = await spot.getSpotImages();
+        // const reviews = await spot.getReviews();
+        // const images = await spot.getSpotImages();
 
 
         // for (r of reviews) {
@@ -171,7 +182,7 @@ router.get('/',validateQuery, async (req, res, next) => {
         //         previewImage = i.dataValues.url
 
         // }
-        previewImage = setPreview(images)
+        previewImage = setPreview(spot.SpotImages)
 
 
 
@@ -182,8 +193,10 @@ router.get('/',validateQuery, async (req, res, next) => {
         // spotsList.push(spotJ)
         //console.log(images)
         let spotJ = spot.toJSON();
-        spotJ.avgRating = avgRating(reviews)
+        spotJ.avgRating = avgRating(spot.Reviews)
         spotJ.previewImage = previewImage
+        delete spotJ.SpotImages
+        delete spotJ.Reviews
         spotsList.push(spotJ)
     }
 
@@ -210,7 +223,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
     for (s of spots)
     {
         let spotJ = s.toJSON()
-        console.log(spotJ)
         spotJ.avgRating = avgRating(spotJ.Reviews)
         spotJ.previewImage = setPreview(spotJ.SpotImages)
 
@@ -294,7 +306,12 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
             id: req.params.spotId,
             ownerId: req.user.id
 
-        }
+        },
+            include: [
+                {
+                    model: SpotImage
+                },
+            ]
     })
 
 
@@ -306,10 +323,19 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
             message: err.message
         })
     }
+    console.log(spot)
+    if (spot.SpotImages.length >= 5)
+    {
+        const err = new Error("Too many images")
+        err.status = 404;
+        res.json({
+            message: err.message
+        })
+    }
 
     const {url, preview} = req.body;
 
-    const spotId = req.user.id
+    const spotId = req.params.spotId
     const image = await SpotImage.create({spotId, url, preview} )
 
 

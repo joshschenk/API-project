@@ -24,7 +24,7 @@ const ListSpots = () => {
 
     return (
         <>
-        <Link to="/spots/new">new spot</Link>
+
         <ul>
             {spots.map((spot) => (
 

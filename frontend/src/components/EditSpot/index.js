@@ -12,14 +12,18 @@ const EditSpot = () => {
 
     // const report = {};
 
+
+
     const dispatch = useDispatch();
 
     const spot = useSelector((state) =>
         state.spot ? state.spot : null
     );
 
+
     useEffect(() => {
         dispatch(fetchSpot(spotId));
+
     }, [dispatch, spotId]);
 
 

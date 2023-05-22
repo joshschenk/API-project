@@ -2,8 +2,9 @@ import { csrfFetch } from "./csrf";
 
 export const LIST_SPOT = "spots/LIST_SPOT"
 export const RECEIVE_SPOT = "spots/RECEIVE_REPORT"
-export const RECEIVE_IMAGE = "spots/RECEIVE_IMAGE"
+export const RECEIVE_IMAGE = "images/RECEIVE_IMAGE"
 export const UPDATE_SPOT = "spots/UPDATE_SPOT"
+export const REMOVE_IMAGE = "images/REMOVE_IMAGE"
 
 export const listSpot = (spot) => ({
     type: LIST_SPOT,
@@ -24,6 +25,25 @@ export const receiveImage = (image) => ({
     type: RECEIVE_IMAGE,
     image
 })
+
+export const removeImage = (imageId) => ({
+    type: REMOVE_IMAGE,
+    imageId
+
+})
+
+export const fetchDeleteImage = (imageId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spot-images/${imageId}`, {
+        method: "DELETE",
+    });
+
+    if (res.ok) {
+        dispatch(removeImage(imageId));
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+};
 
 export const fetchSpot = (id) => async (dispatch) => {
 
@@ -69,9 +89,6 @@ export const createSpot = (spot) => async (dispatch) => {
 };
 
 export const addImage = (id, img) => async (dispatch) => {
-    console.log("in addImage thunk")
-    console.log(id)
-    console.log(JSON.stringify(img))
     const res = await csrfFetch(`/api/spots/${id}/images`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -99,6 +116,9 @@ const spotReducer = (state = {}, action) => {
          case RECEIVE_IMAGE:
              const newImage = {...state, previewImage: action.image}
              return newImage;
+        case REMOVE_IMAGE:
+            const removeImage = {...state}
+            return removeImage;
         default:
             return state;
 

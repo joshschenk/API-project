@@ -6,6 +6,7 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import "./Navigation.css";
+import { Link } from "react-router-dom";
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector((state) => state.session.user);
@@ -15,6 +16,8 @@ function Navigation({ isLoaded }) {
         sessionLinks = (
             <li>
                 <ProfileButton user={sessionUser} />
+                <br/>
+                <Link to="/spots/new">new spot</Link>
             </li>
         );
     } else {

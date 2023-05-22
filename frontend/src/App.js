@@ -12,6 +12,8 @@ import ListSpots from "./components/ListSpots";
 import CreateSpot from "./components/CreateSpot";
 import CurrentSpots from "./components/CurrentSpots";
 import EditSpot from "./components/EditSpot";
+import DeleteModal from "./components/DeleteModal"
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -28,6 +30,7 @@ function App() {
         <Route exact path="/spots/current" component={CurrentSpots} />
         <Route exact path="/spots/:spotId/edit" component={EditSpot}/>
         <Route exact path="/spots/:spotId" component={SpotDetails}/>
+        <Route exact path="/delete" component={DeleteModal}/>
          </Switch>}
 
     </>

@@ -21,7 +21,6 @@ const SpotDetails = () => {
         dispatch(fetchSpot(spotId))
         dispatch(fetchReviews(spotId))
     }, [dispatch, spotId])
-    console.log(spot)
 
     return (
         <>

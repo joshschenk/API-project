@@ -67,13 +67,15 @@ const validateCreate = [
         .isFloat({ max: 180, min: -180 })
         .withMessage('Longitude is not valid'),
     check('name')
-        .exists({ checkFalsy: true }).isLength({ max: 50 })
-        .notEmpty()
+        .isLength({ max: 10 })
+
         .withMessage('Name must be less than 50 characters'),
+
+    check('name')
+        .exists({ checkFalsy: true }).notEmpty().withMessage("Name is required"),
     check('description')
-        .exists({ checkFalsy: true })
-        .notEmpty()
-        .withMessage('Desciption is required'),
+        .exists({ checkFalsy: true }).isLength({min: 30})
+        .withMessage('Desciption needs at least 30 characters'),
     check('price')
         .exists({ checkFalsy: true })
         .notEmpty()
@@ -323,24 +325,29 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
             message: err.message
         })
     }
-    console.log(spot)
+
     if (spot.SpotImages.length >= 5)
     {
         const err = new Error("Too many images")
-        err.status = 404;
-        res.json({
-            message: err.message
-        })
+        err.status = 503;
+        err.title = "Too many images"
+        next(err)
+        // res.status(404);
+        // return res.json
+        // ({
+        //     message: err.message
+        // })
     }
 
-    const {url, preview} = req.body;
+    else {
+        const {url, preview} = req.body;
 
-    const spotId = req.params.spotId
-    const image = await SpotImage.create({spotId, url, preview} )
+        const spotId = req.params.spotId
+        const image = await SpotImage.create({spotId, url, preview} )
 
 
-    res.json({id: image.id, url, preview})
-
+        res.json({id: image.id, url, preview})
+    }
 })
 
 router.put('/:spotId', requireAuth, validateCreate, async (req, res, next) => {
@@ -358,7 +365,7 @@ router.put('/:spotId', requireAuth, validateCreate, async (req, res, next) => {
 
     if (!spot) {
         const err = new Error("Spot couldn't be found")
-        err.status = 404;
+        res.status(404);
         res.json({
             message: err.message
         })
@@ -439,7 +446,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
     if (!spot) {
         const err = new Error("Spot couldn't be found")
-        err.status = 404;
+        res.status(404);
         res.json({
             message: err.message
         })

@@ -19,14 +19,9 @@ const CurrentSpots = () => {
     const dispatch = useDispatch();
 
 
-
-
-
     useEffect(() => {
         dispatch(fetchCurrentSpots());
     }, [dispatch]);
-
-
 
     return (
         <>
@@ -38,7 +33,7 @@ const CurrentSpots = () => {
                         <button >update</button>
                     </Link>
                     <OpenModalButton
-                    // <button spotid={spot.id} onClick={handleDelete}>delete</button>
+
                         buttonText="delete"
                         modalComponent={<DeleteModal spotId={spot.id} />}
                     />

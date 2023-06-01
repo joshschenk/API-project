@@ -19,6 +19,18 @@ function ProfileButton({ user }) {
         setShowMenu(true);
     };
 
+    const handleSpots = (e) => {
+        e.preventDefault()
+        setShowMenu(false)
+        history.push("/spots/current")
+    }
+
+    const handleReviews = (e) => {
+        e.preventDefault()
+        setShowMenu(false)
+        history.push("/reviews/current")
+    }
+
     useEffect(() => {
         if (!showMenu) return;
 
@@ -51,9 +63,9 @@ function ProfileButton({ user }) {
                 <li>{user.username}</li>
                 <li>{user.firstName} {user.lastName}</li>
                 <li>{user.email}</li>
-                <Link to="/spots/current">
-                <button>Manage Spots</button>
-                </Link>
+                <button onClick={handleSpots}>Manage Spots</button>
+                <br/>
+                <button onClick={handleReviews}>Manage Reviews</button>
                 <li>
                     <button onClick={logout}>Log Out</button>
                 </li>

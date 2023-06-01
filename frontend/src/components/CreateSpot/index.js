@@ -306,8 +306,7 @@ const CreateSpot = (spot) => {
             <label>
                 Description:
                 <br />
-                <input
-                    type="textarea"
+                <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />

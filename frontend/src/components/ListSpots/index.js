@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { fetchSpots } from "../../store/spots";
 
 import Spot from "../Spot"
+import "./index.css";
 
 const ListSpots = () => {
 
@@ -16,24 +17,22 @@ const ListSpots = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log("useeffect in spots")
+
         dispatch(fetchSpots());
     }, [dispatch]);
 
-
-
-
     return (
         <>
+            <div className="spotsContainer">
+                <div className="spots">
+                    {spots.map((spot) => (
 
-        <ul>
-            {spots.map((spot) => (
-
-                <Spot spot={spot} key={spot.id}/>
-            ))}
-        </ul>
+                        <Spot spot={spot} key={spot.id}/>
+                    ))}
+                </div>
+            </div>
         </>
-
-
     );
 
 

@@ -39,9 +39,25 @@ module.exports = {
       },
       {
         spotId: 3,
-        url: "https://assets.chicagoparkdistrict.com/s3fs-public/styles/16_9_100_width/public/images/news/Portage%20Outdoor%20Pool.jpg?itok=N15Kn_Zf",
+        url: "https://www.beauchamp.com/_wp/wp-content/uploads/2016/12/Luxury-Villa-in-Mougins.jpg",
+        preview: true
+      },
+      {
+        spotId: 4,
+        url: "https://www.beauchamp.com/_wp/wp-content/uploads/2016/12/Fantastic-Contemporary-Villa-in-Cannes.jpg",
+        preview: true
+      },
+      {
+        spotId: 5,
+        url: "https://www.beauchamp.com/_wp/wp-content/uploads/2016/12/Exceptional-Contemporary-Property-Ramatuelle.jpg",
+        preview: true
+      },
+      {
+        spotId: 6,
+        url: "https://www.beauchamp.com/_wp/wp-content/uploads/2016/12/Stylish-Villa-Close-to-the-Beach-in-Saint-Tropez-.jpg",
         preview: true
       }
+
     ])
   },
 

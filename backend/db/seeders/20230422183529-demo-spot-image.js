@@ -24,12 +24,27 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: "https://chipublib.bibliocommons.com/events/uploads/images/full/6314ef45d17ac782240765bc7e5489b8/harold-washington-library-center.jpg",
+        url: "https://www.petitehaus.com/wp-content/uploads/2022/03/25262646-60CA-4455-8835-CD0A2E3BD546.jpeg",
         preview: true
       },
       {
         spotId: 1,
-        url: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/b8/2f/4a/winter-garden.jpg?w=1100&h=-1&s=1",
+        url: "https://www.petitehaus.com/wp-content/uploads/2022/03/B3C94037-F63C-4182-994A-5AB2AAC5D403.jpeg",
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: "https://www.petitehaus.com/wp-content/uploads/2022/03/1FA74836-9E97-401C-BF32-DA3C3ABBF886.jpeg",
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: "https://www.petitehaus.com/wp-content/uploads/2022/03/B40D90DB-7E80-4280-AF7B-625F87F81818.jpeg",
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: "https://www.petitehaus.com/wp-content/uploads/2022/03/D42BB4DC-E60C-4D6E-816C-7C6C9A395343.jpeg",
         preview: false
       },
       {

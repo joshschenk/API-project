@@ -66,7 +66,7 @@ const spotsReducer = (state = {}, action) => {
     switch(action.type) {
         case ADD_SPOT:
             // console.log("Price..." + action.spot.price)
-            const newState = {...state, [action.spot.id]: action.spot}
+            const newState = {...state, [action.spot.id]: {...action.spot}}
             return newState;
         case CURRENT_SPOTS:
             const currentSpots = {};

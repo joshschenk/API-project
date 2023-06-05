@@ -171,18 +171,18 @@ router.put('/:reviewId', requireAuth, validateRev,  async (req, res, next) => {
 
 })
 
-router.delete('/:spotId', requireAuth, async (req, res, next) => {
+router.delete('/:reviewId', requireAuth, async (req, res, next) => {
 
 
-    const review = await Spot.findByPk(req.params.spotId,
+    const review = await Review.findByPk(req.params.reviewId,
+    {
+        where:
         {
-            where:
-            {
-                id: req.params.spotId,
-                userId: req.user.id
+            id: req.params.spotId,
+            userId: req.user.id
 
-            }
-        })
+        }
+    })
 
     if (!review) {
         const err = new Error("Review couldn't be found")

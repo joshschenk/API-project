@@ -15,11 +15,12 @@ export const addReview = (review) => ({
 })
 
 export const fetchAddReview = (review, spotId) =>  async (dispatch) => {
+
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(review),
-    });
+    })
 
     if (res.ok) {
         const rev = await res.json();
@@ -27,7 +28,8 @@ export const fetchAddReview = (review, spotId) =>  async (dispatch) => {
         return rev;
     }
     else {
-        const errors = await res.json();
+        let errors = {}
+        errors = await res.json()
         return errors;
     }
 
@@ -53,7 +55,7 @@ const reviewsReducer = (state = {reviews:{}, review:{}}, action) => {
             });
             return {reviews: {...reviewsState}, review: {...state.review} };
         case ADD_REVIEW:
-            const newReview = action.reviews.review
+            const newReview = action.review
             return {reviews: {...state.reviews}, review: {...newReview}}
         default:
             return state;

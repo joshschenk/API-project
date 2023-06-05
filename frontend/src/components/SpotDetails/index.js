@@ -15,7 +15,7 @@ const SpotDetails = () => {
     const sessionUser = useSelector((state) => state.session.user);
     const spot = useSelector((state => state.spot ? state.spot : null))
 
-    const spotOwner = sessionUser.id === spot.ownerId;
+    const spotOwner = sessionUser?.id === spot.ownerId;
 
     const reviews = Object.values(
         useSelector((state=> state.reviews.reviews ? state.reviews.reviews: []))
@@ -46,7 +46,7 @@ const SpotDetails = () => {
 
             <OpenModalButton
                 buttonText="Post your Review"
-                modalComponent={<ReviewFormModal/>}
+                modalComponent={<ReviewFormModal spotId={spotId}/>}
             />
        )
     }

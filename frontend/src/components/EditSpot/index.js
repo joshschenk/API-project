@@ -10,7 +10,6 @@ import CreateSpot from "../CreateSpot"
 const EditSpot = () => {
     const { spotId } = useParams();
 
-    // const report = {};
 
 
 

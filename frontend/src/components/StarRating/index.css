@@ -1,0 +1,12 @@
+.ratings {
+    display: flex;
+    flex-direction: row;
+}
+
+.filled {
+    color: black;
+}
+
+.empty {
+    color: red;
+}

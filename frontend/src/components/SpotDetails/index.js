@@ -8,6 +8,7 @@ import { fetchReviews } from "../../store/reviews";
 import "./index.css"
 import OpenModalButton from "../OpenModalButton";
 import ReviewFormModal from "../ReviewFormModal";
+import DeleteModal from "../DeleteModal";
 
 const SpotDetails = () => {
     const { spotId } = useParams();
@@ -21,10 +22,41 @@ const SpotDetails = () => {
         useSelector((state=> state.reviews.reviews ? state.reviews.reviews: []))
     );
 
+
+
+    reviews.sort((a, b) => {
+        let d1 = new Date(a.updatedAt).getTime();
+        let d2 = new Date(b.updatedAt).getTime();
+
+
+        if (d1 > d2)
+            return -1;
+        if (d1 < d2)
+            return 1;
+        return 0;
+    });
+
+    const reviewDelete = (review) => {
+        console.log(review)
+        if (review?.userId === sessionUser?.id)
+        {
+            return (
+                <OpenModalButton
+                    buttonText="delete"
+                    modalComponent={<DeleteModal reviewId={review?.id} type="review"/>}
+                />
+            )
+        }
+        else {
+            return (
+                <></>
+            )
+        }
+    }
+
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log("useeffect in details")
         dispatch(fetchSpot(spotId))
         dispatch(fetchReviews(spotId))
     }, [dispatch, spotId])
@@ -101,6 +133,7 @@ const SpotDetails = () => {
                         <div>
                             {review.review}
                         </div>
+                        <div>{reviewDelete(review)}</div>
                     </div>
                 ))
             }

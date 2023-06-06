@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import { Route } from "react-router-dom"
 
 import Spot from "./components/Spot";
+import ManageReviews from "./components/ManageReviews"
 import SpotDetails from "./components/SpotDetails";
 import ListSpots from "./components/ListSpots";
 import CreateSpot from "./components/CreateSpot";
@@ -25,6 +26,7 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && <Switch>
+        <Route exact path="/reviews/current" component={ManageReviews}/>
         <Route exact path="/spots/new" component={CreateSpot}/>
         <Route exact path="/" component={ListSpots}/>
         <Route exact path="/spots/current" component={CurrentSpots} />

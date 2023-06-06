@@ -1,15 +1,30 @@
 import { useDispatch } from "react-redux";
 import { fetchDeleteSpot } from "../../store/spots";
 import { useModal } from "../../context/Modal";
-
-export default function DeleteModal({spotId}) {
+import { fetchDeleteReview } from "../../store/reviews";
+export default function DeleteModal({spotId, reviewId, type}) {
 
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
+    const deleteText = type === "review" ?
+        "Yes (Delete Review)" :
+        "Yes (Delete Spot)"
+
+    const dontDeleteText = type === "review" ?
+        "No (Keep Review)":
+        "No (Keep Spot)"
+
+
     const handleDelete = (e) => {
         e.preventDefault();
-        return dispatch(fetchDeleteSpot(spotId)).then(closeModal);
+        if (type === "review")
+        {
+            console.log(reviewId)
+            return dispatch(fetchDeleteReview(reviewId)).then(closeModal)
+        }
+        else
+            return dispatch(fetchDeleteSpot(spotId)).then(closeModal);
     }
 
     const handleNotDelete = (e) => {
@@ -21,8 +36,8 @@ export default function DeleteModal({spotId}) {
             <h2>Confirm Delete</h2>
             <p>Are you sure you want to remove this spot
                 from the listings?</p>
-            <button onClick={handleDelete}>Yes (Delete Spot)</button>
-            <button onClick={handleNotDelete}>No (Keep Spot)</button>
+            <button onClick={handleDelete}>{deleteText}</button>
+            <button onClick={handleNotDelete}>{dontDeleteText}</button>
 
         </>
 

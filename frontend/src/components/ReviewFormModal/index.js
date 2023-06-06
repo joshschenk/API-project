@@ -2,10 +2,13 @@ import { useModal } from "../../context/Modal";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import StarRating from "../StarRating";
+import { useHistory } from "react-router-dom";
 import { fetchAddReview } from "../../store/reviews";
+import { fetchReviews } from "../../store/reviews";
 
 
 function ReviewFormModal ({spotId}) {
+    const history = useHistory();
     const [reviewText, setReviewText] = useState("")
     const [rating, setRating] = useState(0);
     const dispatch = useDispatch()
@@ -16,11 +19,20 @@ function ReviewFormModal ({spotId}) {
         e.preventDefault();
 
         let err = {};
-        return dispatch(fetchAddReview({review: reviewText, stars: rating}, spotId ))
-            .then(closeModal).catch(async (res)=> {
+        dispatch(fetchAddReview({review: reviewText, stars: rating}, spotId ))
+            .then(()=> {
+                dispatch(fetchReviews(spotId));
+                closeModal();
+
+                //
+            }).catch(async (res)=> {
                 const data = await res.json()
                 console.log(data)
             })
+
+
+
+
 
 
         // let result = {}

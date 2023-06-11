@@ -8,6 +8,7 @@ import { fetchDeleteSpot } from "../../store/spots"
 import Spot from "../Spot"
 import DeleteModal from "../DeleteModal";
 import OpenModalButton from "../OpenModalButton";
+import "./index.css"
 
 const CurrentSpots = () => {
 
@@ -24,24 +25,24 @@ const CurrentSpots = () => {
     }, [dispatch]);
 
     return (
-        <>
-            <ul>
+        <div className="currentSpots">
+
                 {spots.map((spot) => (
-                    <>
-                    <Spot spot={spot} key={spot.id} />
-                    <Link to={`/spots/${spot.id}/edit`}>
-                        <button >update</button>
-                    </Link>
-                    <OpenModalButton
+                    <div className="currentSpot">
+                        <Spot spot={spot} key={spot.id} />
+                        <Link to={`/spots/${spot.id}/edit`}>
+                            <button >update</button>
+                        </Link>
+                        <OpenModalButton
 
-                        buttonText="delete"
-                        modalComponent={<DeleteModal spotId={spot.id} />}
-                    />
+                            buttonText="delete"
+                            modalComponent={<DeleteModal spotId={spot.id} />}
+                        />
 
-                    </>
+                    </div>
                 ))}
-            </ul>
-        </>
+
+        </div>
     )
 }
 

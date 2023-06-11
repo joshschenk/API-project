@@ -1,0 +1,43 @@
+.currentSpots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5em;
+
+}
+
+.currentSpot {
+    width: 23%;
+}
+
+.currentSpot > .spot {
+    width:100%;
+}
+
+.spot > a {
+    width: 100%;
+}
+
+a > .spotImage {
+    width: 100%;
+}
+
+@media screen and (max-width: 750px) {
+
+    .currentSpot {
+        width: 32%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    .currentSpot {
+        width: 49%;
+    }
+}
+
+@media screen and (max-width: 300px) {
+
+    .currentSpot {
+        width: 100%;
+    }
+}

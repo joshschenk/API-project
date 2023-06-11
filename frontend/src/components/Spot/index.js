@@ -15,6 +15,8 @@ const Spot = ({spot}) => {
         <div className="spot">
             <Link to={`/spots/${spot.id}`}>
                 <img className="spotImage" src={spot.previewImage} alt="preview"/>
+                <span className="toolTipName">{spot.name}</span>
+
             </Link>
 
             <div className="spotText">

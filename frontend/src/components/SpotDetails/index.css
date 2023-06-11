@@ -1,7 +1,17 @@
+.detailsContainer {
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%; */
+    margin-right: 3em;
+    margin-left: 3em;
+}
+
 .imagesContainer {
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 1.5em;
+    border-radius: 1.5em;
 }
 
 .preview {
@@ -39,4 +49,69 @@
     border: 0px;
     min-height: 100%;
     max-height: 100%;
+}
+
+.underImages {
+    display: flex;
+    margin-top: 3em;
+    padding-bottom: 2em;
+    margin-bottom: 2em;
+    border-bottom: solid gray
+}
+
+.hostDescrip {
+    width: 75%;
+    margin-right: 3em;
+}
+
+.reserveContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    border: solid black;
+    width:45%;
+    border-radius: 3em;
+    height: 8em;
+}
+
+.reserveText {
+    display: flex;
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.reserveButton {
+    width: 80%;
+    height: 30%;
+    background-color: #FF5A5F;
+    border-radius: 3em;
+}
+
+.avgRating {
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.review {
+    margin-bottom: 2em;
+}
+
+.name {
+    font-size: 1.4em;
+    margin-bottom: .3em;
+}
+
+.date {
+    font-size: 1.2em;
+    margin-bottom: .3em;
+    color: gray;
+}
+
+.newReview {
+    background-color: rgb(103, 98, 98);
 }

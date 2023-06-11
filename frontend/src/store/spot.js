@@ -5,6 +5,11 @@ export const RECEIVE_SPOT = "spots/RECEIVE_REPORT"
 export const RECEIVE_IMAGE = "images/RECEIVE_IMAGE"
 export const UPDATE_SPOT = "spots/UPDATE_SPOT"
 export const REMOVE_IMAGE = "images/REMOVE_IMAGE"
+export const CLEAR_SPOT = 'spot/CLEAR_SPOT'
+
+export const clearSpot = () => ({
+    type: CLEAR_SPOT
+})
 
 export const listSpot = (spot) => ({
     type: LIST_SPOT,
@@ -119,6 +124,8 @@ const spotReducer = (state = {}, action) => {
         case REMOVE_IMAGE:
             const removeImage = {...state}
             return removeImage;
+        case CLEAR_SPOT:
+            return {};
         default:
             return state;
 

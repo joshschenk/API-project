@@ -9,6 +9,7 @@ import "./index.css"
 import OpenModalButton from "../OpenModalButton";
 import ReviewFormModal from "../ReviewFormModal";
 import DeleteModal from "../DeleteModal";
+import { clearSpot } from "../../store/spot";
 
 const SpotDetails = () => {
     const { spotId } = useParams();
@@ -59,6 +60,7 @@ const SpotDetails = () => {
     useEffect(() => {
         dispatch(fetchSpot(spotId))
         dispatch(fetchReviews(spotId))
+        dispatch(clearSpot())
     }, [dispatch, spotId])
 
 
@@ -77,6 +79,7 @@ const SpotDetails = () => {
        newReview = (
 
             <OpenModalButton
+                className="newReview"
                 buttonText="Post your Review"
                 modalComponent={<ReviewFormModal spotId={spotId}/>}
             />
@@ -95,7 +98,7 @@ const SpotDetails = () => {
 
 
     return (
-        <>
+        <div className="detailsContainer">
             <div className="imagesContainer">
                 <div className="preview">
                     <img src={preview?.url} key={preview?.id} alt={preview?.id} />
@@ -110,25 +113,48 @@ const SpotDetails = () => {
                 }
                 </div>
             </div>
-            <div>
-                <h3>Hosted by {spot?.Owner?.firstName} {spot?.Owner?.lastName}</h3>
+            <div className="underImages">
+                <div className="hostDescrip">
+                    <div>
+                        <h3>Hosted by {spot?.Owner?.firstName} {spot?.Owner?.lastName}</h3>
+                    </div>
+                    <div>
+                        {spot.description}
+                    </div>
+                </div>
+                <div className="reserveContainer">
+                    <div className="reserveText">
+                        <div className="reservePrice">
+                            {`$${spot?.price} night`}
+                        </div>
+                        <div class="avgRatingReserve">
+                            <i class="fa fa-star" />
+                            <span >{spot.avgRating?.toFixed(1)}  &#183;</span>
+                            <span>  {reviews.length} Reviews</span>
+                        </div>
+                    </div>
+                    <button className="reserveButton">Reserve</button>
+                </div>
             </div>
-            <div>
-                {spot.description}
-            </div>
-            <div>
-                <h2>Reviews</h2>
-                {newReview}
+            <div class="avgRating">
+                <div>
+                    <i class="fa fa-star"/>
+                    <span >{spot.avgRating?.toFixed(1)}  &#183;</span>
+                    <span>  {reviews.length} Reviews</span>
+                </div>
+                <div >
+                    {newReview}
+                </div>
             </div>
             <div>
             {
                 reviews?.map((review) => (
-                    <div key={review.id}>
-                        <div>
-                            <h3>{review.User.firstName}</h3>
+                    <div className="review" key={review.id}>
+                        <div className="name">
+                            {review.User.firstName}
                         </div>
-                        <div>
-                            <h4>{getReviewDate(review.createdAt)}</h4>
+                        <div className="date">
+                            {getReviewDate(review.createdAt)}
                         </div>
                         <div>
                             {review.review}
@@ -141,7 +167,7 @@ const SpotDetails = () => {
 
 
 
-        </>
+        </div>
     )
 }
 

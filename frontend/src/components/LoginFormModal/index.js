@@ -25,8 +25,10 @@ function LoginFormModal() {
             });
     };
 
+
+
     return (
-        <>
+        <div className="loginForm">
             <h1>Log In</h1>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -50,9 +52,9 @@ function LoginFormModal() {
                 {errors.credential && (
                     <p>{errors.credential}</p>
                 )}
-                <button type="submit">Log In</button>
+                <button type="submit" disabled={(password.length < 6 || credential.length < 4)}>Log In</button>
             </form>
-        </>
+        </div>
     );
 }
 

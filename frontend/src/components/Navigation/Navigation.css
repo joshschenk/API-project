@@ -1,0 +1,13 @@
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-right: 2em;
+    padding-left: 2em;
+    align-items: center;
+}
+.logo {
+    width: 8em;
+    height: 2em;
+}

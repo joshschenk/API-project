@@ -5,14 +5,19 @@ import * as sessionActions from '../../store/session';
 import "./ProfileButton.css"
 import {Link} from "react-router-dom"
 import { useHistory } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
+import { useModal } from "../../context/Modal";
 
-function ProfileButton({ user }) {
+function ProfileButton({ user, loggedIn }) {
 
 
     const history = useHistory();
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
+    const {closeModal} = useModal();
 
     const openMenu = () => {
         if (showMenu) return;
@@ -22,12 +27,14 @@ function ProfileButton({ user }) {
     const handleSpots = (e) => {
         e.preventDefault()
         setShowMenu(false)
+        closeModal();
         history.push("/spots/current")
     }
 
     const handleReviews = (e) => {
         e.preventDefault()
         setShowMenu(false)
+        closeModal();
         history.push("/reviews/current")
     }
 
@@ -47,30 +54,63 @@ function ProfileButton({ user }) {
 
     const logout = (e) => {
         e.preventDefault();
-        dispatch(sessionActions.logout());
-        history.push("/");
+        dispatch(sessionActions.logout()).then(closeModal);
+
 
     };
 
+    let logged;
+    if (loggedIn)
+
+        logged = (
+            <div className="profileLinks">
+                <div>{user.username}</div>
+                <div>{user.firstName} {user.lastName}</div>
+                <div>{ user.email }</div>
+                <div><button onClick={handleSpots}>Manage Spots</button></div >
+                <div><button onClick={handleReviews}>Manage Reviews</button></div >
+                <div><button onClick={logout}>Log Out</button></div >
+            </div>
+        )
+    else
+        logged = (
+            <div className="logSignForm">
+                <OpenModalButton
+                        buttonText="Log In"
+                        modalComponent={<LoginFormModal className="logInModal" />}
+                />
+                <OpenModalButton
+                        buttonText="Sign Up"
+                        modalComponent={<SignupFormModal className="signUpModal"/>}
+                />
+            </div>
+        )
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
+    // const closeModalButton = () => {
+    //     if ()
+    // }
+
     return (
-        <>
-            <button onClick={openMenu}>
-                <i className="fas fa-user-circle" />
-            </button>
-            <ul className={ulClassName} ref={ulRef}>
-                <li>{user.username}</li>
-                <li>{user.firstName} {user.lastName}</li>
-                <li>{user.email}</li>
-                <button onClick={handleSpots}>Manage Spots</button>
-                <br/>
-                <button onClick={handleReviews}>Manage Reviews</button>
-                <li>
-                    <button onClick={logout}>Log Out</button>
-                </li>
-            </ul>
-        </>
+        <OpenModalButton className="proButton"
+            // onclick={closeModalButton}
+            buttonText={
+                <div className= "profileObj">
+                    <i className="fas fa-bars fa-2x" />
+                    <i className="fas fa-user-circle fa-2x" />
+
+                </div>
+            }
+            modalComponent={logged}
+        />
+        // <>
+        //     <button onClick={openMenu}>
+
+        //     </button>
+        //     <ul className={ulClassName} ref={ulRef}>
+        //         {logged}
+        //     </ul>
+        // </>
     );
 }
 

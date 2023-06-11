@@ -2,3 +2,55 @@
 {
     display: none
 }
+
+.profileLinks {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 5px;
+    background: beige;
+    top: 33px;
+}
+
+.profileLinksBg {
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+.logSignForm {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 5px;
+    background: beige;
+    top: 33px;
+}
+
+.logInModalBg {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.signUpModalBg {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.profileLinksButton {
+    background-color: white;
+    padding: 0;
+    gap: 1em;
+    align-items: center;
+    border-radius: 1em;
+}
+
+.loggedIn {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+a.newSpot {
+    text-decoration: none
+}
+
+.profileObj {
+    padding: .3em;
+}

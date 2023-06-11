@@ -16,7 +16,8 @@ function OpenModalButton({
         setModalContent(modalComponent);
     };
 
-    return <button onClick={onClick}>{buttonText}</button>;
+
+    return <button className={`${modalComponent.props.className}Button`} onClick={onClick}>{buttonText}</button>;
 }
 
 export default OpenModalButton;

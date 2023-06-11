@@ -45,9 +45,11 @@ export function Modal() {
     if (!modalRef || !modalRef.current || !modalContent) return null;
 
     // Render the following component to the div referenced by the modalRef
+
+    console.log(modalContent)
     return ReactDOM.createPortal(
         <div id="modal">
-            <div id="modal-background" onClick={closeModal} />
+            <div id="modal-background" className={`${modalContent.props.className}Bg`} onClick={closeModal} />
             <div id="modal-content">{modalContent}</div>
         </div>,
         modalRef.current

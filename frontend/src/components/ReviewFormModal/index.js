@@ -10,7 +10,8 @@ import { fetchReviews } from "../../store/reviews";
 function ReviewFormModal ({spotId}) {
     const history = useHistory();
     const [reviewText, setReviewText] = useState("")
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState(1);
+    const [errors, setErrors] = useState({});
     const dispatch = useDispatch()
 
     const {closeModal} = useModal();
@@ -18,7 +19,6 @@ function ReviewFormModal ({spotId}) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        let err = {};
         dispatch(fetchAddReview({review: reviewText, stars: rating}, spotId ))
             .then(()=> {
                 dispatch(fetchReviews(spotId));
@@ -29,20 +29,6 @@ function ReviewFormModal ({spotId}) {
                 const data = await res.json()
                 console.log(data)
             })
-
-
-
-
-
-
-        // let result = {}
-
-        // try {
-        //     result = dispatch(fetchAddReview({ review: reviewText, stars: rating }, spotId))
-        // }
-        // catch (error) {
-
-        // }
 
     }
 
@@ -66,7 +52,7 @@ function ReviewFormModal ({spotId}) {
                 <br/>
                 <StarRating rating={rating} onChange={onChange}/>
                 <div>
-                    <button type="submit">Submit</button>
+                    <button type="submit" disabled={reviewText.length < 10}>Submit</button>
                 </div>
             </form>
         </>

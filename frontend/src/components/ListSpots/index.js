@@ -23,16 +23,14 @@ const ListSpots = () => {
     }, [dispatch]);
 
     return (
-        <>
-            <div className="spotsContainer">
                 <div className="spots">
                     {spots.map((spot) => (
 
                         <Spot spot={spot} key={spot.id}/>
                     ))}
                 </div>
-            </div>
-        </>
+
+
     );
 
 

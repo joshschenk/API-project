@@ -20,7 +20,7 @@ const StarRating = ({disabled, onChange, rating }) => {
     return (
         <div className="ratings">
             <div
-                className={activeRating >= 1 ? "filled" : "empty"}
+                className={"filled"}
                 onMouseEnter={() => { if (!disabled) setActiveRating(1) }}
                 onMouseLeave={() => { if (!disabled) setActiveRating(rating) }}
                 onClick={() => { if (!disabled) onChange(1) }}

@@ -13,18 +13,17 @@ const Spot = ({spot}) => {
     return (
 
         <div className="spot">
-            <div >
-                <Link to={`/spots/${spot.id}`}>
-                    <img className="spotImage" src={spot.previewImage} alt="preview"/>
-                </Link>
-            </div>
+            <Link to={`/spots/${spot.id}`}>
+                <img className="spotImage" src={spot.previewImage} alt="preview"/>
+            </Link>
+
             <div className="spotText">
                 <div class="spotTextCityStar">
                     <div>
-                        {spot.city},{spot.state}
+                        {spot.city}, {spot.state}
                     </div>
                     <div>
-                        <span class="fa fa-star"></span>{spot.avgRating}
+                        <span class="fa fa-star"></span>{spot.avgRating?.toFixed(1)}
                     </div>
                 </div>
 

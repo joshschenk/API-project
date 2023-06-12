@@ -148,8 +148,11 @@ const SpotDetails = () => {
                         </div>
                         <div class="avgRatingReserve">
                             <i class="fa fa-star" />
-                            <span >{average > 0 ? average?.toFixed(1) : "New"}  &#183;</span>
-                            <span>  {reviews.length} {reviews?.length === 1 ? "Review" : "Reviews"}</span>
+                            <span >{average ? average?.toFixed(1) : "New"}  </span>
+                            <span>{reviews.length !== 0 && <span>&#183; {reviews?.length}</span>} {reviews?.length === 1 ?
+                                "Review" : reviews?.length === 0 ? "" : "Reviews"}</span>
+                            {/* <span >{average > 0 ? average?.toFixed(1) : "New"}  &#183;</span>
+                            <span>  {reviews.length} {reviews?.length === 1 ? "Review" : "Reviews"}</span> */}
                         </div>
                     </div>
                     <button onClick={handleReserve} className="reserveButton">Reserve</button>
@@ -159,8 +162,13 @@ const SpotDetails = () => {
                 <div>
                     <i class="fa fa-star"/>
                     {/* spot.avgRating?. */}
-                    <span >{average ? average?.toFixed(1) : "New"}  &#183;</span>
-                    <span>  {reviews?.length} {reviews?.length === 1 ? "Review" : "Reviews"}</span>
+                    {/* <span >{average ? average?.toFixed(1) : "New"}  &#183;</span>
+                    <span>  {reviews?.length} {reviews?.length === 1 ?
+                     "Review" : "Reviews"}</span> */}
+
+                    <span >{average ? average?.toFixed(1) : "New"}  </span>
+                    <span>{reviews.length !== 0 && <span>&#183; {reviews?.length}</span>} {reviews?.length === 1 ?
+                        "Review" : reviews?.length === 0 ? "":"Reviews" }</span>
                 </div>
                 <div >
                     {!hasReview && sessionUser && newReview}

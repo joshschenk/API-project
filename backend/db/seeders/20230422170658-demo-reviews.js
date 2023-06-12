@@ -31,7 +31,7 @@ module.exports = {
       {
         spotId: 2,
         userId: 3,
-        review: "Not good",
+        review: "eget cursus enim. Duis tincidunt mattis nisl nec tincidunt. Aenean consectetur blandit metus, eu dapibus lorem elementum sit amet. Aenean at libero molestie justo sollicitudin rhoncus. Sed elementum urna fringilla, accumsan leo eget, volutpat tortor. Maecenas vel luctus enim, gravida posuere odio. Proin finibus ante",
         stars: 1,
       },
       {
@@ -43,7 +43,7 @@ module.exports = {
       {
         spotId: 2,
         userId: 2,
-        review: "Not great",
+        review: "Etiam ultricies nibh mi, id pellentesque neque iaculis sed.Nam non velit interdum, luctus metus vitae, consequat felis.Nunc nec dapibus metus.",
         stars: 2,
       }
 

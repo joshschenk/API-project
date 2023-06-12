@@ -1,0 +1,34 @@
+.createform {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.photos {
+    display: flex;
+    flex-direction: column;
+}
+.lastDesc {
+    margin-bottom: 2em;
+}
+
+.pricefield {
+}
+
+.lastPrice {
+    margin-bottom: 2em;
+}
+
+label input {
+    margin-left: 3em;
+}
+
+.lastNa {
+    margin-bottom: 2em;
+}
+
+.lastText {
+    margin-bottom: 2em;
+}

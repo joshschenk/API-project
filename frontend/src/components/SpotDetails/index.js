@@ -10,14 +10,18 @@ import OpenModalButton from "../OpenModalButton";
 import ReviewFormModal from "../ReviewFormModal";
 import DeleteModal from "../DeleteModal";
 import { clearSpot } from "../../store/spot";
+import { currentReviews } from "../../store/reviews";
 
 const SpotDetails = () => {
     const { spotId } = useParams();
+
 
     const sessionUser = useSelector((state) => state.session.user);
     const spot = useSelector((state => state.spot ? state.spot : null))
 
     const spotOwner = sessionUser?.id === spot.ownerId;
+
+
 
     const reviews = Object.values(
         useSelector((state=> state.reviews.reviews ? state.reviews.reviews: []))
@@ -38,13 +42,12 @@ const SpotDetails = () => {
     });
 
     const reviewDelete = (review) => {
-        console.log(review)
         if (review?.userId === sessionUser?.id)
         {
             return (
                 <OpenModalButton
                     buttonText="delete"
-                    modalComponent={<DeleteModal reviewId={review?.id} type="review"/>}
+                    modalComponent={<DeleteModal className="delete" reviewId={review?.id} type="review"/>}
                 />
             )
         }
@@ -60,10 +63,17 @@ const SpotDetails = () => {
     useEffect(() => {
         dispatch(fetchSpot(spotId))
         dispatch(fetchReviews(spotId))
-        dispatch(clearSpot())
+        return () => { dispatch(clearSpot())}
     }, [dispatch, spotId])
 
+    let total = 0;
+    let average = 0;
+    for (let r of reviews)
+    {
+        total += r.stars
+    }
 
+    average = total / reviews.length;
 
     let spotImages = spot.SpotImages?.slice()
     let preview;
@@ -81,7 +91,7 @@ const SpotDetails = () => {
             <OpenModalButton
                 className="newReview"
                 buttonText="Post your Review"
-                modalComponent={<ReviewFormModal spotId={spotId}/>}
+                modalComponent={<ReviewFormModal className="postAReview" spotId={spotId}/>}
             />
        )
     }
@@ -95,10 +105,19 @@ const SpotDetails = () => {
         return month[d.getMonth()] + " " + d.getFullYear();
         //return d.getMonth() + " " + d.getYear()
     }
+    let hasReview = false;
 
+    for (let r of reviews)
+        if (sessionUser?.id === r.User.id)
+            hasReview = true;
+
+    const handleReserve = () => {
+        window.alert("Feature coming soon")
+    }
 
     return (
         <div className="detailsContainer">
+            <h2>{spot?.name}</h2>
             <div className="imagesContainer">
                 <div className="preview">
                     <img src={preview?.url} key={preview?.id} alt={preview?.id} />
@@ -129,24 +148,26 @@ const SpotDetails = () => {
                         </div>
                         <div class="avgRatingReserve">
                             <i class="fa fa-star" />
-                            <span >{spot.avgRating?.toFixed(1)}  &#183;</span>
-                            <span>  {reviews.length} Reviews</span>
+                            <span >{average > 0 ? average?.toFixed(1) : "New"}  &#183;</span>
+                            <span>  {reviews.length} {reviews?.length === 1 ? "Review" : "Reviews"}</span>
                         </div>
                     </div>
-                    <button className="reserveButton">Reserve</button>
+                    <button onClick={handleReserve} className="reserveButton">Reserve</button>
                 </div>
             </div>
             <div class="avgRating">
                 <div>
                     <i class="fa fa-star"/>
-                    <span >{spot.avgRating?.toFixed(1)}  &#183;</span>
-                    <span>  {reviews.length} Reviews</span>
+                    {/* spot.avgRating?. */}
+                    <span >{average ? average?.toFixed(1) : "New"}  &#183;</span>
+                    <span>  {reviews?.length} {reviews?.length === 1 ? "Review" : "Reviews"}</span>
                 </div>
                 <div >
-                    {newReview}
+                    {!hasReview && sessionUser && newReview}
                 </div>
             </div>
             <div>
+            {reviews?.length === 0 && <h2>Be the first to Review!</h2>}
             {
                 reviews?.map((review) => (
                     <div className="review" key={review.id}>
@@ -156,10 +177,13 @@ const SpotDetails = () => {
                         <div className="date">
                             {getReviewDate(review.createdAt)}
                         </div>
-                        <div>
+                        <div className="reviewWords">
                             {review.review}
                         </div>
-                        <div>{reviewDelete(review)}</div>
+                        <div>
+                            {review?.userId === sessionUser?.id && <button className="updateReview">Update</button>}
+                            {reviewDelete(review)}
+                        </div>
                     </div>
                 ))
             }

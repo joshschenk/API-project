@@ -2,6 +2,9 @@ import { useDispatch } from "react-redux";
 import { fetchDeleteSpot } from "../../store/spots";
 import { useModal } from "../../context/Modal";
 import { fetchDeleteReview } from "../../store/reviews";
+import { fetchSpot } from "../../store/spot";
+import "./index.css"
+
 export default function DeleteModal({spotId, reviewId, type}) {
 
     const dispatch = useDispatch();
@@ -21,7 +24,8 @@ export default function DeleteModal({spotId, reviewId, type}) {
         if (type === "review")
         {
             console.log(reviewId)
-            return dispatch(fetchDeleteReview(reviewId)).then(closeModal)
+            dispatch(fetchSpot(spotId))
+            dispatch(fetchDeleteReview(reviewId)).then(closeModal)
         }
         else
             return dispatch(fetchDeleteSpot(spotId)).then(closeModal);
@@ -32,14 +36,14 @@ export default function DeleteModal({spotId, reviewId, type}) {
         closeModal();
     }
     return (
-        <>
+        <div className="deleteConfirm">
             <h2>Confirm Delete</h2>
             <p>Are you sure you want to remove this spot
                 from the listings?</p>
-            <button onClick={handleDelete}>{deleteText}</button>
-            <button onClick={handleNotDelete}>{dontDeleteText}</button>
+            <button class="yesDelete" onClick={handleDelete}>{deleteText}</button>
+            <button class="noDelete" onClick={handleNotDelete}>{dontDeleteText}</button>
 
-        </>
+        </div>
 
     );
 }

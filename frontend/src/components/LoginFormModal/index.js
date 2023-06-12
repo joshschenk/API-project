@@ -25,35 +25,44 @@ function LoginFormModal() {
             });
     };
 
-
+    const handleDemo = () => {
+        dispatch(sessionActions.login({credential: "demo@user.io", password: "password"}))
+            .then(closeModal)
+    }
 
     return (
+        <div className="loginM">
         <div className="loginForm">
             <h1>Log In</h1>
             <form onSubmit={handleSubmit}>
-                <label>
-                    Username or Email
-                    <input
-                        type="text"
-                        value={credential}
-                        onChange={(e) => setCredential(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    Password
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </label>
+                <div className="loginFields">
+                        <label>
+                            Username or Email
+                        </label>
+                        <input
+                                type="text"
+                                value={credential}
+                                onChange={(e) => setCredential(e.target.value)}
+                                required
+                        />
+                    <label>
+                        Password
+                    </label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
                 {errors.credential && (
                     <p>{errors.credential}</p>
                 )}
-                <button type="submit" disabled={(password.length < 6 || credential.length < 4)}>Log In</button>
+                <button className="submitButt" type="submit" disabled={(password.length < 6 || credential.length < 4)}>Log In</button>
+                        <button onClick={handleDemo}>Demo User</button>
+                </div>
             </form>
+
+        </div>
         </div>
     );
 }

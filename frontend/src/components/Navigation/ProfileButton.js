@@ -55,6 +55,7 @@ function ProfileButton({ user, loggedIn }) {
     const logout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.logout()).then(closeModal);
+        history.push("/")
 
 
     };
@@ -64,8 +65,9 @@ function ProfileButton({ user, loggedIn }) {
 
         logged = (
             <div className="profileLinks">
+                <div>Hello, {user.firstName}</div>
                 <div>{user.username}</div>
-                <div>{user.firstName} {user.lastName}</div>
+
                 <div>{ user.email }</div>
                 <div><button onClick={handleSpots}>Manage Spots</button></div >
                 <div><button onClick={handleReviews}>Manage Reviews</button></div >

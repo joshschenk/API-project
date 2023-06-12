@@ -9,11 +9,14 @@ import { fetchSpot } from "../../store/spots";
 const Spot = ({spot}) => {
 
 
-
     return (
 
         <div className="spot">
+
+
             <Link to={`/spots/${spot.id}`}>
+
+
                 <img className="spotImage" src={spot.previewImage} alt="preview"/>
                 <span className="toolTipName">{spot.name}</span>
 
@@ -25,7 +28,7 @@ const Spot = ({spot}) => {
                         {spot.city}, {spot.state}
                     </div>
                     <div>
-                        <span class="fa fa-star"></span>{spot.avgRating?.toFixed(1)}
+                        <span class="fa fa-star"></span>{spot.avgRating?.toFixed(1) || "New"}
                     </div>
                 </div>
 
@@ -33,6 +36,7 @@ const Spot = ({spot}) => {
                     ${spot.price} night
                 </div>
             </div>
+
         </div>
 
 

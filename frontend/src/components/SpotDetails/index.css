@@ -95,15 +95,24 @@
     margin-bottom: 1em;
     display: flex;
     flex-direction: column;
+    font-size: 2em;
 }
 
 .review {
     margin-bottom: 2em;
 }
 
+.reviewWords {
+    padding-bottom: .4em;
+}
+
 .name {
     font-size: 1.4em;
     margin-bottom: .3em;
+}
+
+.updateReview {
+    margin-right: 1em;
 }
 
 .date {
@@ -114,4 +123,8 @@
 
 .newReview {
     background-color: rgb(103, 98, 98);
+}
+
+.postAReviewBg {
+    background-color: rgba(0,0,0,.7);
 }

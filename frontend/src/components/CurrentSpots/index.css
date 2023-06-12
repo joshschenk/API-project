@@ -1,7 +1,7 @@
 .currentSpots {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5em;
+    gap: 3em;
 
 }
 
@@ -19,6 +19,14 @@
 
 a > .spotImage {
     width: 100%;
+}
+
+.updateSpotButt {
+    margin-right: 1em;
+}
+
+.newSpotBut {
+    margin-bottom: 2em;
 }
 
 @media screen and (max-width: 750px) {

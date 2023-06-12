@@ -25,13 +25,19 @@ const CurrentSpots = () => {
     }, [dispatch]);
 
     return (
+        <>
+        <h2>Manange Spots</h2>
+        <Link className="newSpot" to="/spots/new">
+            <button class="newSpotBut">Create Spot</button>
+        </Link>
         <div className="currentSpots">
+
 
                 {spots.map((spot) => (
                     <div className="currentSpot">
                         <Spot spot={spot} key={spot.id} />
                         <Link to={`/spots/${spot.id}/edit`}>
-                            <button >update</button>
+                            <button class="updateSpotButt">update</button>
                         </Link>
                         <OpenModalButton
 
@@ -43,6 +49,7 @@ const CurrentSpots = () => {
                 ))}
 
         </div>
+        </>
     )
 }
 

@@ -48,15 +48,15 @@ const ManageReviews = () => {
 
                 {
                     reviews?.map((review) => (
-                        <div className="review" key={review.id}>
+                        <div className="review" key={review?.id}>
                             <div className="name">
-                                {review.Spot.name}
+                                {review.Spot?.name}
                             </div>
                             <div className="date">
                                 {getReviewDate(review.createdAt)}
                             </div>
                             <div className="reviewWords">
-                                {review.review}
+                                {review?.review}
                             </div>
                             <button className="updateReview">Update</button>
                             <OpenModalButton

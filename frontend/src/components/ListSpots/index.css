@@ -4,19 +4,18 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    gap: .5%;
+    gap: 1%;
 
     border-top: solid #c8bbbb;
     padding-top: 1em;
-    justify-content: space-between;
-    padding-right: 2em;
+    padding-right: .75em;
     padding-left: 2em;
 
 }
 .spot {
     display: flex;
     flex-direction: column;
-    width: 23%;
+    width: 24%;
     margin-bottom: 20px;
 }
 
